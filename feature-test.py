@@ -11,11 +11,11 @@ import os
 from datetime import datetime
 import time
 
-# --- Configuration ---
+
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
 
-# --- Data Structure: Segment Tree (Kept for Inventory Value Analysis) ---
+# Segment Tree Class 
 class SegmentTree:
     def __init__(self, size):
         self.size = size
@@ -38,7 +38,7 @@ class SegmentTree:
     def get_total_sum(self):
         return self.tree[1]
 
-# --- Main Application ---
+# Main App
 class ModernCashierApp(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -46,13 +46,13 @@ class ModernCashierApp(ctk.CTk):
         self.title("Nexus POS - Modern Register")
         self.geometry("1200x750")
         
-        # Data Initialization
+        # Init data
         self.products_file = "products.csv"
         self.history_file = "sales_history.csv"
-        self.cart = [] # Temporary cart for current transaction
+        self.cart = [] 
         self.load_data()
         
-        # Segment Tree Init
+        
         self.seg_tree = SegmentTree(1000)
         self.rebuild_segment_tree()
 
@@ -88,7 +88,7 @@ class ModernCashierApp(ctk.CTk):
         self.df_products.to_csv(self.products_file, index=False)
         self.df_history.to_csv(self.history_file, index=False)
 
-    # --- UI Construction ---
+    #sidebar
     def create_sidebar(self):
         self.sidebar = ctk.CTkFrame(self, width=200, corner_radius=0)
         self.sidebar.grid(row=0, column=0, sticky="nsew")
@@ -112,7 +112,7 @@ class ModernCashierApp(ctk.CTk):
         self.frames["stats"] = self.create_stats_frame()
 
     def show_frame(self, page_name):
-        # Cleanup Camera if leaving scan page
+        # Cleanup Camera
         if hasattr(self, 'cap') and self.cap is not None:
             self.scanning_active = False
             self.cap.release()
@@ -127,7 +127,7 @@ class ModernCashierApp(ctk.CTk):
         if page_name == "stats":
             self.update_stats()
 
-    # --- 1. Inventory (Same as before) ---
+    # Inventory
     def create_inventory_frame(self):
         frame = ctk.CTkFrame(self, corner_radius=0, fg_color="transparent")
         
@@ -180,14 +180,14 @@ class ModernCashierApp(ctk.CTk):
         for _, row in self.df_products.iterrows():
             self.tree_inv.insert("", "end", values=(row['name'], row['price'], row['category'], row['qrImgUrl']))
 
-    # --- 2. SCAN & CART LOGIC (Major Update) ---
+    # Scan
     def create_scan_frame(self):
         frame = ctk.CTkFrame(self, corner_radius=0, fg_color="transparent")
         frame.grid_columnconfigure(0, weight=1) # Camera
         frame.grid_columnconfigure(1, weight=1) # Cart
         frame.grid_rowconfigure(0, weight=1)
 
-        # -- Left Side: Camera --
+        # Camera
         cam_frame = ctk.CTkFrame(frame)
         cam_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
         
@@ -197,13 +197,13 @@ class ModernCashierApp(ctk.CTk):
         self.lbl_status = ctk.CTkLabel(cam_frame, text="Ready to Scan", text_color="gray")
         self.lbl_status.pack(pady=10)
 
-        # -- Right Side: Cart / Catalogue --
+        # Catalogue
         cart_frame = ctk.CTkFrame(frame)
         cart_frame.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
         
         ctk.CTkLabel(cart_frame, text="Current Cart", font=("Arial", 16, "bold")).pack(pady=10)
         
-        # Cart Treeview
+        # Cart
         style = ttk.Style()
         style.configure("Treeview", rowheight=25)
         self.tree_cart = ttk.Treeview(cart_frame, columns=("Product", "Price", "Qty", "Subtotal"), show="headings")
@@ -237,16 +237,16 @@ class ModernCashierApp(ctk.CTk):
         if self.cap is not None and self.scanning_active:
             ret, frame = self.cap.read()
             if ret:
-                # 1. Detect QR
+                
                 decoded_objs = decode(frame)
                 
-                # 2. Process Detection (with cooldown)
+                
                 current_time = time.time()
                 if decoded_objs and (current_time - self.last_scan_time > 2.0):
                     qr_data = decoded_objs[0].data.decode('utf-8')
                     self.handle_scan(qr_data)
                 
-                # 3. Update UI Image
+                
                 cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
                 img = Image.fromarray(cv2image)
                 imgtk = ImageTk.PhotoImage(image=img)
@@ -256,17 +256,17 @@ class ModernCashierApp(ctk.CTk):
             self.lbl_camera.after(20, self.update_camera)
 
     def handle_scan(self, qr_data):
-        # Pause Camera Logic
+        
         self.scanning_active = False
         
-        # Find Product
+        # FindProduct
         product = self.df_products[self.df_products['qrImgUrl'] == qr_data]
         
         if not product.empty:
             p_name = product.iloc[0]['name']
             p_price = product.iloc[0]['price']
             
-            # Ask for Quantity
+            
             dialog = ctk.CTkInputDialog(text=f"Product Detected: {p_name}\nPrice: ${p_price}\n\nEnter Quantity:", title="Add to Cart")
             qty_str = dialog.get_input()
             
@@ -284,13 +284,13 @@ class ModernCashierApp(ctk.CTk):
             messagebox.showwarning("Unknown", f"Product not found: {qr_data}")
             self.lbl_status.configure(text="Product Not Found", text_color="red")
             
-        # Resume Camera Logic
+        
         self.last_scan_time = time.time()
         self.scanning_active = True
         self.update_camera()
 
     def add_to_cart(self, name, price, qty, subtotal):
-        # Add to internal list
+        
         self.cart.append({
             "product_name": name,
             "price": price,
@@ -301,7 +301,6 @@ class ModernCashierApp(ctk.CTk):
         self.update_cart_ui()
 
     def update_cart_ui(self):
-        # Clear tree
         for i in self.tree_cart.get_children():
             self.tree_cart.delete(i)
         
@@ -321,11 +320,11 @@ class ModernCashierApp(ctk.CTk):
             messagebox.showinfo("Empty", "Cart is empty!")
             return
             
-        # Add cart items to history dataframe
+        # add cart histoy to df
         new_sales = pd.DataFrame(self.cart)
         self.df_history = pd.concat([self.df_history, new_sales], ignore_index=True)
         
-        # Save
+        # save
         self.save_data()
         
         # Feedback
@@ -334,7 +333,7 @@ class ModernCashierApp(ctk.CTk):
         
         self.clear_cart()
 
-    # --- 3. Analytics (Updated) ---
+    # Analytic
     def create_stats_frame(self):
         frame = ctk.CTkFrame(self, corner_radius=0, fg_color="transparent")
         self.stats_text = ctk.CTkTextbox(frame, height=100)
