@@ -11,11 +11,16 @@ Cashier system based on python program that featuring GUI, QR code scanning , an
 </ul>
 
 ### TechStack
-Language: Python 3.x
-GUI: CustomTkinter 
-Image Processing: OpenCV (cv2) & PyZbar (QR)
-Data Handling: Pandas 
-Algorithm: Custom Segment Tree 
+<ul>
+  <li>Language: Python 3.x</li>
+  <li>
+GUI: CustomTkinter </li>
+  <li>Image Processing: OpenCV (cv2) & PyZbar (QR)</li>
+  <li>Data Handling: Pandas </li>
+  <li>Algorithm/DS: Custom Segment Tree </li>
+  
+</ul>
+
 
 ## Installation
 1. Clone or Download this repository.
