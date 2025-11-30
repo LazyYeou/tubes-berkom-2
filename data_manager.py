@@ -26,8 +26,8 @@ class DataManager:
         self.seg_tree = SegmentTree(1000) 
         
         # load data and push it to segment tree
-        self.df_products = self._load_products()
-        self.df_history = self._load_history()
+        self.df_products = self.load_products()
+        self.df_history = self.load_history()
         self.rebuild_segment_tree()
 
     def load_products(self):
@@ -37,7 +37,7 @@ class DataManager:
         """
         if os.path.exists(self.products_file):
             return pd.read_csv(self.products_file)
-        return pd.DataFrame(columns=["name", "price", "category", "qrImgUrl"])
+        return pd.DataFrame(columns=["name", "price", "category", "qr_data"])
 
     def load_history(self):
         """
@@ -88,7 +88,7 @@ class DataManager:
         @param qr_data scanned string
         @return DataFrame Row or None
         """
-        product = self.df_products[self.df_products['qrImgUrl'] == qr_data]
+        product = self.df_products[self.df_products['qr_data'] == qr_data]
         if not product.empty:
             return product.iloc[0]
         return None
@@ -103,21 +103,6 @@ class DataManager:
         self.df_history = pd.concat([self.df_history, new_sales], ignore_index=True)
         self.save_data()
         return sum(item['total'] for item in cart_items)
-
-    # def get_dashboard_stats(self):
-    #     """
-    #     @brief 
-    #     @return dictionary of revenue, inventory value, min price, and max price
-    #     """
-    #     hist_revenue = self.df_history['total'].sum() if 'total' in self.df_history.columns else 0
-    #     inv_total, inv_min, inv_max = self.seg_tree.get_stats()
-        
-    #     return {
-    #         "revenue": hist_revenue,
-    #         "inventory_value": inv_total,
-    #         "min_price": inv_min,
-    #         "max_price": inv_max
-    #     }
 
     def save_data(self):
         """

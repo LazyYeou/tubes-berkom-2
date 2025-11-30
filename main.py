@@ -1,7 +1,6 @@
 """
 @file main.py
-@brief Main application entry point for Nexus POS.
-@details Now simplified to only handle navigation and initialization.
+@brief main application for the kasir app
 """
 import customtkinter as ctk
 from data_manager import DataManager
@@ -14,11 +13,11 @@ from scanner_ui import ScannerFrame
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
 
-class ModernCashierApp(ctk.CTk):
+class CashierApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("Nexus POS - Modern Register")
+        self.title("TUBES - CASHIER APP")
         self.geometry("1200x750")
         
         # init data
@@ -28,23 +27,23 @@ class ModernCashierApp(ctk.CTk):
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
-        self._create_sidebar()
-        self._create_pages()
+        self.create_sidebar()
+        self.create_pages()
         
         #inventory_ui as main page
         self.show_frame("inventory")
 
-    def _create_sidebar(self):
+    def create_sidebar(self):
         self.sidebar = ctk.CTkFrame(self, width=200, corner_radius=0)
         self.sidebar.grid(row=0, column=0, sticky="nsew")
         
         ctk.CTkLabel(self.sidebar, text="TUBES BERKOM2", font=ctk.CTkFont(size=20, weight="bold")).grid(row=0, column=0, padx=20, pady=20)
 
         ctk.CTkButton(self.sidebar, text="Inventory", command=lambda: self.show_frame("inventory")).grid(row=1, column=0, padx=20, pady=10)
-        ctk.CTkButton(self.sidebar, text="Cashier (Scan)", command=lambda: self.show_frame("scan")).grid(row=2, column=0, padx=20, pady=10)
+        ctk.CTkButton(self.sidebar, text="Scan QR / CheckOut", command=lambda: self.show_frame("scan")).grid(row=2, column=0, padx=20, pady=10)
         ctk.CTkButton(self.sidebar, text="Analytics", command=lambda: self.show_frame("stats")).grid(row=3, column=0, padx=20, pady=10)
 
-    def _create_pages(self):
+    def create_pages(self):
         self.frames = {}
         
         self.frames["inventory"] = InventoryFrame(self, self.data_manager)
@@ -71,5 +70,5 @@ class ModernCashierApp(ctk.CTk):
             self.frames["stats"].update_stats()
 
 if __name__ == "__main__":
-    app = ModernCashierApp()
+    app = CashierApp()
     app.mainloop()

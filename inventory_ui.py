@@ -76,4 +76,4 @@ class InventoryFrame(ctk.CTkFrame):
         for i in self.tree_inv.get_children(): 
             self.tree_inv.delete(i)
         for _, row in self.data_manager.df_products.iterrows():
-            self.tree_inv.insert("", "end", values=(row['name'], row['price'], row['category'], row['qrImgUrl']))
+            self.tree_inv.insert("", "end", values=(row['name'], row['price'], row['category'], row['qr_data']))
