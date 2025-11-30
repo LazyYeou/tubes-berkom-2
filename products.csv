@@ -1,2 +1,101 @@
-name,price,category,qrImgUrl
-JON,200.0,Tools,jon_qr
+name,price,category,qr_data
+Beras Ramos 5kg,72000,Sembako,QR0001
+Minyak Goreng Bimoli 1L,18500,Sembako,QR0002
+Gula Pasir Gulaku 1kg,15500,Sembako,QR0003
+Telur Ayam 1kg,28000,Sembako,QR0004
+Tepung Terigu Segitiga Biru 1kg,13500,Sembako,QR0005
+Mie Instan Indomie Goreng,3500,Makanan Instan,QR0006
+Mie Instan Indomie Soto,3500,Makanan Instan,QR0007
+Sarden ABC 425g,17500,Makanan Kaleng,QR0008
+Kornet Pronas 340g,22000,Makanan Kaleng,QR0009
+Kopi Kapal Api Special 165g,14500,Minuman,QR0010
+Teh Celup Sariwangi 25pcs,9500,Minuman,QR0011
+Susu UHT Frisian Flag 1L,18500,Minuman,QR0012
+Air Mineral Aqua 600ml,4000,Minuman,QR0013
+Yogurt Cimory 250ml,9000,Minuman,QR0014
+Nutrisari Jeruk 10 sachet,10500,Minuman,QR0015
+Sabun Lifebuoy 110g,3500,Kebutuhan Rumah,QR0016
+Shampoo Sunsilk 170ml,21000,Perawatan Diri,QR0017
+Pasta Gigi Pepsodent 190g,14500,Perawatan Diri,QR0018
+Tissue Paseo 250 sheets,12500,Kebutuhan Rumah,QR0019
+Detergen Rinso 1.8kg,35000,Kebutuhan Rumah,QR0020
+Pewangi Molto 900ml,16000,Kebutuhan Rumah,QR0021
+Popok Bayi Sweety Gold M18,56000,Bayi,QR0022
+Susu Formula SGM 1+ 900g,76500,Bayi,QR0023
+Biskuit Roma Kelapa 300g,11500,Makanan Ringan,QR0024
+Chitato Sapi Panggang 68g,8500,Makanan Ringan,QR0025
+Tango Wafer Vanilla 130g,9000,Makanan Ringan,QR0026
+Silverqueen 58g,12500,Makanan Ringan,QR0027
+Kacang Garuda 250g,17500,Makanan Ringan,QR0028
+Roti Tawar Sari Roti,16000,Roti,QR0029
+Sosis So Nice 500g,28000,Olahan Beku,QR0030
+Nugget Ayam So Good 400g,39000,Olahan Beku,QR0031
+Ayam Fillet 1kg,48000,Daging,QR0032
+Daging Sapi Giling 500g,48000,Daging,QR0033
+Ikan Lele 1kg,26000,Ikan,QR0034
+Ikan Bandeng 1kg,35000,Ikan,QR0035
+Sayur Bayam 1 ikat,3000,Sayuran,QR0036
+Kangkung 1 ikat,2500,Sayuran,QR0037
+Wortel 1kg,12000,Sayuran,QR0038
+Kentang 1kg,14000,Sayuran,QR0039
+Bawang Merah 1kg,38000,Sayuran,QR0040
+Bawang Putih 1kg,32000,Sayuran,QR0041
+Cabai Merah 1kg,68000,Sayuran,QR0042
+Cabai Rawit 1kg,72000,Sayuran,QR0043
+Apel Malang 1kg,22000,Buah,QR0044
+Pisang Cavendish 1kg,26000,Buah,QR0045
+Jeruk Medan 1kg,24000,Buah,QR0046
+Semangka 1 buah,28000,Buah,QR0047
+Pepaya California 1 buah,15000,Buah,QR0048
+Minyak Sunco 2L,36500,Sembako,QR0049
+Saus Sambal ABC 275ml,8500,Bumbu,QR0050
+Kecap Bango 520ml,24500,Bumbu,QR0051
+Kecap ABC 600ml,21500,Bumbu,QR0052
+Garam Refina 500g,5000,Bumbu,QR0053
+Lada Bubuk Koepoe 50g,11000,Bumbu,QR0054
+Bumbu Indofood Rendang,3500,Bumbu,QR0055
+Susu Beruang 189ml,9000,Minuman,QR0056
+Sprite 1.5L,14000,Minuman,QR0057
+Coca-Cola 1.5L,15000,Minuman,QR0058
+Fanta 1.5L,14500,Minuman,QR0059
+Selai Skippy 340g,38000,Sarapan,QR0060
+Nutella 350g,86000,Sarapan,QR0061
+Oatmeal Quaker 800g,38500,Sarapan,QR0062
+Sereal Koko Krunch 330g,37500,Sarapan,QR0063
+Roti Coklat Sari Roti,9000,Roti,QR0064
+Keju Kraft 165g,19000,Dairy,QR0065
+Mentega Blue Band 200g,9000,Dairy,QR0066
+Susu Dancow 1+ 800g,87000,Bayi,QR0067
+Pampers Premium M20,98000,Bayi,QR0068
+Tisu Basah Mitu 50 sheets,9500,Bayi,QR0069
+Air Mineral Le Minerale 600ml,3500,Minuman,QR0070
+Kopi Good Day Cappuccino,2500,Minuman,QR0071
+Energen Coklat 10 sachet,13500,Sarapan,QR0072
+Susu Milo 1kg,85000,Minuman,QR0073
+Sari Roti Sandwich,6500,Roti,QR0074
+Yakult 5pcs,9500,Minuman,QR0075
+Oreo 113g,9000,Makanan Ringan,QR0076
+Good Time Cookies 72g,8500,Makanan Ringan,QR0077
+Chiki Balls 50g,6000,Makanan Ringan,QR0078
+Qtela Singkong 55g,7000,Makanan Ringan,QR0079
+Sosis Kanzler Singles,14500,Olahan Beku,QR0080
+Es Krim Wall's Cornetto,11500,Olahan Beku,QR0081
+Es Krim Magnum Classic,15500,Olahan Beku,QR0082
+Susu Ultra 250ml,5500,Minuman,QR0083
+Teh Pucuk 500ml,4500,Minuman,QR0084
+Aqua 1.5L,9000,Minuman,QR0085
+Indomilk Full Cream 1L,17500,Minuman,QR0086
+Leminerale 1.5L,8500,Minuman,QR0087
+Bimoli 2L,39000,Sembako,QR0088
+Rinso Cair 700ml,17000,Kebutuhan Rumah,QR0089
+Sunlight Jeruk Nipis 755ml,15500,Kebutuhan Rumah,QR0090
+Baygon Semprot 600ml,35000,Kebutuhan Rumah,QR0091
+Vixal Pembersih 780ml,18000,Kebutuhan Rumah,QR0092
+Clear Men 170ml,25000,Perawatan Diri,QR0093
+Rexona Men Roll On,17000,Perawatan Diri,QR0094
+Garnier Men Facial Wash,25000,Perawatan Diri,QR0095
+Wardah Lightening Face Wash,20000,Perawatan Diri,QR0096
+Nivea Body Lotion 200ml,29000,Perawatan Diri,QR0097
+Minyak Telon My Baby 90ml,18000,Bayi,QR0098
+Pronas Sosis Kaleng 150g,14500,Makanan Kaleng,QR0099
+Beng Beng 1 pcs,2500,Makanan Ringan,QR0100
