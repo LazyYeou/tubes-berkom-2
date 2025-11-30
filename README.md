@@ -26,7 +26,7 @@ GUI: CustomTkinter </li>
 1. Clone or Download this repository.
 2. You need Python installed. Run the following command in your terminal to install the required libraries:
     ```sh
-    pip install customtkinter pandas opencv-python pyzbar pillow qrcode[pil]
+    pip install customtkinter pandas opencv-python pyzbar pillow 
     ```
 3. Run the main app
    ```sh
