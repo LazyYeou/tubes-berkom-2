@@ -66,9 +66,9 @@ class SegmentTree:
                 self.tree[2 * node] = val
                 self.tree[2 * node + 1] = self.tree[node]
         else:
-            if self.tree[node].minVal > val.minval or self.tree[node].maxVal < val.minval:
+            if self.tree[node].minVal > val.minVal or self.tree[node].maxVal < val.minval:
                 return
-            mid = (left + right)/2
+            mid = (left + right)//2
             self.add(node * 2, left, mid, val)
             self.add(node * 2 + 1, mid + 1, right, val)
         self.tree[node].minVal = min(self.tree[2 * node].minVal, self.tree[2 * node + 1].minVal)
