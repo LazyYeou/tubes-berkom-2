@@ -3,60 +3,60 @@
 '''
 
 class product_node:
-    def __init__(self, name, val):
+    	def __init__(self, name, val, category, qr):
         self.name = name
-        self.minVal = val
-        self.maxVal = val
-        self.sumVal = val
+        self.Price = val
+        self.category = category
+        self.qr_data = qr
 
-    def set_val(self, name, val):
+    def setVal(self, name, val, category, qr):
         self.name = name
-        self.minVal = val
-        self.maxVal = val
-        self.sumVal = val
+        self.Price = val
+        self.category = category
+        self.qr_data = qr
     
 class SegmentTree:
-    def __init__(self, size):
+    def __init__(self, size, prod):
         self.size = size
-        self.tree = [product_node("", 0) for i in range(4 * size)]
+        self.tree = [product_node("", 0, "", "") for i in range(4 * size)]
+        self.build(1, 0, self.size-1, prod)
 
     def merge(self, node):
         left_child = self.tree[2 * node]
         right_child = self.tree[2 * node + 1]
         
-        self.tree[node].sumVal = left_child.sumVal + right_child.sumVal
-        self.tree[node].minVal = min(left_child.minVal, right_child.minVal)
-        self.tree[node].maxVal = max(left_child.maxVal, right_child.maxVal)
+        self.tree[node].Price = left_child.Price + right_child.Price
 
-    def update(self, node, left, right, idx, price, name):
+    def update(self, node, left, right, idx, prod):
         """
         Updates a speicific product id with new price and name.
         """
         if left == right:
             # Leaf node reached
-            self.tree[node].set_val(name, price)
+            self.tree[node] = prod
             return
 
         mid = (left + right) // 2
         if idx <= mid:
-            self.update(2 * node, left, mid, idx, price, name)
+            self.update(2 * node, left, mid, idx, prod)
         else:
-            self.update(2 * node + 1, mid + 1, right, idx, price, name)
+            self.update(2 * node + 1, mid + 1, right, idx, prod)
         
         self.merge(node)
 
-    def update_value(self, idx, price, name="Product"):
-        self.update(1, 0, self.size - 1, idx, price, name)
+    def update_value(self, idx, prod):
+        self.update(1, 0, self.size - 1, idx, prod)
 
     def get_total_sum(self, node, left, right, l_range, r_range):
         if(r_range < left or right < l_range):
             return 0
         if(l_range <= left and r_range >= right):
-            return self.tree[node].sumVal
+            return self.tree[node].Price
         
         mid = (left + right)//2
         return self.get_total_sum(node * 2, left, mid, l_range, r_range) + self.get_total_sum(node * 2 + 1, mid+1, right, l_range, r_range)
         
+<<<<<<< HEAD
     def add(self, node, left, right, val):
         if left == right:
             if self.tree[node].minVal <= val.minVal:
@@ -74,29 +74,19 @@ class SegmentTree:
         self.tree[node].minVal = min(self.tree[2 * node].minVal, self.tree[2 * node + 1].minVal)
         self.tree[node].maxVal = max(self.tree[2 * node].maxVal, self.tree[2 * node + 1].maxVal)
         self.tree[node].sumVal = self.tree[2 * node].sumVal + self.tree[2 * node + 1].sumVal
+=======
+    def build(self, node, left, right, prod):
+								if(left == right):
+								    self.tree[node] = prod[left]
+        mid = (left + right)//2
+        build(self, 2 * node, left, mid, prod)
+        build(self, 2 * node + 1, mid + 1, right, prod)
+        self.tree[node].Price = self.tree[2 * node].Price + self.tree[2 * node + 1].Price
+  
+>>>>>>> 67c0ca995efb1b97a9eff67ece40311f9ca49bcf
 
-    def min_range_query(self, node, left, right, l_range, r_range):
-        if(r_range < left or right < l_range):
-            return 0
-        if(l_range <= left and r_range >= right):
-            return self.tree[node].minVal
-        mid = (left + right)//2
-        return min(self.min_range_query(node * 2, left, mid, l_range, r_range), self.min_range_query(node * 2 + 1, mid + 1, right, l_range, r_range))
-        
-    def max_range_query(self, node, left, right, l_range, r_range):
-        if(r_range < left or right < l_range):
-            return 0
-        if(l_range <= left and r_range >= right):
-            return self.tree[node].minVal
-        mid = (left + right)//2
-        return max(self.max_range_query(node * 2, left, mid, l_range, r_range), self.max_range_query(node * 2 + 1, mid + 1, right, l_range, r_range))
     
     def get_stats(self):
         total = self.get_total_sum(1, 0, self.size - 1, 0, self.size - 1)
-        min_val = self.min_range_query(1, 0, self.size - 1, 0, self.size - 1)
-        max_val = self.max_range_query(1, 0, self.size - 1, 0, self.size - 1)
         
-        if min_val == float('inf'): min_val = 0
-        if max_val == float('-inf'): max_val = 0
-        
-        return total, min_val, max_val
+        return total
