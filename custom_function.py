@@ -28,7 +28,7 @@ def filter_data_by_date(data, start_str, end_str):
     return [row for row in data if (start_date <= row['timestamp'] and row['timestamp'] <= end_date)]
 
 def get_stats(data, product_map):
-    """Calculates total revenue, quantity, and top category."""
+    """@brief calculates total revenue, quantity, and top category"""
     if not data:
         return 0, 0, "-"
 
@@ -40,7 +40,6 @@ def get_stats(data, product_map):
         total_revenue += row['total']
         total_qty += row['qty']
         
-        # Determine category
         prod_name = row['product_name']
         cat = product_map.get(prod_name, "Uncategorized")
         row['category'] = cat 
@@ -54,23 +53,16 @@ def get_stats(data, product_map):
 
 def group_by_time(data, mode="Day"):
     """
-    Aggregates revenue by Day or Month.
-    Returns: Tuple (sorted_dates, revenues)
+    @brief group revenue by day or month
     """
     grouped = {}
     
     for row in data:
         ts = row['timestamp']
-        if mode == "Day":
-            key = ts.replace(hour=0, minute=0, second=0, microsecond=0)
-        else:
-            # First day of the month
-            key = ts.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-            
-        grouped[key] = grouped.get(key, 0) + row['total']
+        grouped[ts] = grouped.get(ts, 0) + row['total']
 
-    # Sort by date
-    sorted_keys = sorted(grouped.keys())
+    #sortby date
+    sorted_keys = new_sort(grouped.keys())
     values = [grouped[k] for k in sorted_keys]
     
     return sorted_keys, values
@@ -78,7 +70,7 @@ def group_by_time(data, mode="Day"):
 
 def group_hierarchy(data):
     """
-    Groups data by Category -> Product for the Treeview.
+    @brief groups data by Category
     Structure: { 'Category': { 'Product': {'rev': 0, 'qty': 0} } }
     """
     tree_data = {}
@@ -92,11 +84,9 @@ def group_hierarchy(data):
         if cat not in tree_data:
             tree_data[cat] = {'total_rev': 0, 'total_qty': 0, 'products': {}}
             
-        # Update Category Totals
         tree_data[cat]['total_rev'] += rev
         tree_data[cat]['total_qty'] += qty
         
-        # Update Product Totals
         if prod not in tree_data[cat]['products']:
             tree_data[cat]['products'][prod] = {'rev': 0, 'qty': 0}
             
