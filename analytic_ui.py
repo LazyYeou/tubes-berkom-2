@@ -158,35 +158,46 @@ class AnalyticsFrame(ctk.CTkFrame):
 
     def _clear_charts(self):
         for widget in self.chart_frame_hist.winfo_children(): widget.destroy()
-        for widget in self.chart_frame_cat.winfo_children(): widget.destroy()
         
     def _clear_tree(self):
         for item in self.tree.get_children(): self.tree.delete(item)
 
     def _plot_revenue_history(self):
-        self._clear_charts() # Partially clears, specifically history frame
-        
-        # dates is a list of datetime objects, revenues is a list of floats
+        self._clear_charts()
+
         dates, revenues = cf.group_by_time(self.current_data, self.view_mode)
-        
-        # 3. Plotting
+
+        #figure
         fig, ax = plt.subplots(figsize=(5, 3), dpi=100)
-        fig.patch.set_facecolor('#2b2b2b') 
+        fig.patch.set_facecolor('#2b2b2b')
         ax.set_facecolor('#2b2b2b')
-        
-        # Actual Data
-        ax.bar(dates, revenues, color="#3b82f6", alpha=0.8, label="Actual", width=0.8 if self.view_mode=="Day" else 20)
-        
-        ax.set_title(f"{self.view_mode}ly Revenue + Forecast", color="white", fontsize=10)
+
+        #adjust bar width
+        width = 0.8 if self.view_mode == "Day" else 20
+
+        #plot
+        ax.bar(dates, revenues, color="#3b82f6", alpha=0.8, width=width, label="Actual")
+
+        #style
+        ax.set_title(f"daily revenue", color="white", fontsize=10)
         ax.tick_params(axis='x', colors="white", rotation=45, labelsize=8)
         ax.tick_params(axis='y', colors="white", labelsize=8)
-        
-        ax.spines['bottom'].set_color("white")
-        ax.spines['top'].set_visible(False)
-        ax.spines['right'].set_visible(False)
-        ax.spines['left'].set_visible(False)
-        ax.legend(loc="upper left", fontsize=8, facecolor='#2b2b2b', edgecolor='white', labelcolor='white')
-        
+
+        #border
+        for spine in ("bottom",):
+            ax.spines[spine].set_color("white")
+        for spine in ("top", "right", "left"):
+            ax.spines[spine].set_visible(False)
+
+        #spine
+        ax.legend(
+            loc="upper left",
+            fontsize=8,
+            facecolor='#2b2b2b',
+            edgecolor='white',
+            labelcolor='white'
+        )
+
         plt.tight_layout()
         canvas = FigureCanvasTkAgg(fig, master=self.chart_frame_hist)
         canvas.draw()
