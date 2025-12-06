@@ -5,13 +5,13 @@
 class product_node:
     def __init__(self, name, val, category, qr):
         self.name = name
-        self.Price = val
+        self.price = val
         self.category = category
         self.qr_data = qr
 
     def setVal(self, name, val, category, qr):
         self.name = name
-        self.Price = val
+        self.price = val
         self.category = category
         self.qr_data = qr
     
@@ -25,7 +25,7 @@ class SegmentTree:
         left_child = self.tree[2 * node]
         right_child = self.tree[2 * node + 1]
         
-        self.tree[node].Price = left_child.Price + right_child.Price
+        self.tree[node].price = left_child.price + right_child.price
 
     def update(self, node, left, right, idx, prod):
         """
@@ -51,7 +51,7 @@ class SegmentTree:
         if(r_range < left or right < l_range):
             return 0
         if(l_range <= left and r_range >= right):
-            return self.tree[node].Price
+            return self.tree[node].price
         
         mid = (left + right)//2
         return self.get_total_sum(node * 2, left, mid, l_range, r_range) + self.get_total_sum(node * 2 + 1, mid+1, right, l_range, r_range)
@@ -62,7 +62,7 @@ class SegmentTree:
         mid = (left + right)//2
         self.build(self, 2 * node, left, mid, prod)
         self.build(self, 2 * node + 1, mid + 1, right, prod)
-        self.tree[node].Price = self.tree[2 * node].Price + self.tree[2 * node + 1].Price
+        self.tree[node].price = self.tree[2 * node].price + self.tree[2 * node + 1].price
   
 
     
