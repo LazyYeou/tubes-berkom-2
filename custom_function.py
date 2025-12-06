@@ -59,9 +59,9 @@ def group_by_time(data, mode="Day"):
     
     for row in data:
         ts = row['timestamp']
-        grouped[ts] = grouped.get(ts, 0) + row['total']
+        k = ts.replace(hour = 0, minute = 0, second = 0, microsecond=0)
+        grouped[k] = grouped.get(k, 0) + row['total']
 
-    #sortby date
     sorted_keys = new_sort(grouped.keys())
     values = [grouped[k] for k in sorted_keys]
     

@@ -22,7 +22,7 @@ class AnalyticsFrame(ctk.CTkFrame):
         self.full_data_list = self.load_data_as_dicts() 
         self.current_data = self.full_data_list.copy()
 
-        print(self.full_data_list)
+        # print(self.full_data_list)
         
         self._setup_styles()
         self._create_layout()
@@ -42,7 +42,7 @@ class AnalyticsFrame(ctk.CTkFrame):
         """
         load csv and converts immediately to a list of dictionaries.
         """
-        filename = 'transactions_seeded.csv'
+        filename = 'sales_history.csv'
         if os.path.exists(filename):
             df = pd.read_csv(filename)
             df['timestamp'] = pd.to_datetime(df['timestamp']).dt.to_pydatetime()
@@ -84,9 +84,9 @@ class AnalyticsFrame(ctk.CTkFrame):
         self.stat_frame.grid(row=1, column=0, sticky="ew", padx=20, pady=10)
         self.stat_frame.columnconfigure((0, 1, 2), weight=1)
 
-        self.card_revenue = self._create_stat_card(self.stat_frame, "Total Revenue", "Rp 0", 0)
-        self.card_orders = self._create_stat_card(self.stat_frame, "Total Transactions", "0", 1)
-        self.card_top = self._create_stat_card(self.stat_frame, "Top Category", "-", 2)
+        self.card_revenue = self.create_stat_card(self.stat_frame, "Total Revenue", "Rp 0", 0)
+        self.card_orders = self.create_stat_card(self.stat_frame, "Total Transactions", "0", 1)
+        self.card_top = self.create_stat_card(self.stat_frame, "Top Category", "-", 2)
 
         #chart
         charts_container = ctk.CTkFrame(self, fg_color="transparent")
@@ -116,7 +116,7 @@ class AnalyticsFrame(ctk.CTkFrame):
         self.tree.column("Qty", width=100, anchor="center")
         self.tree.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
-    def _create_stat_card(self, parent, title, value, col_idx):
+    def create_stat_card(self, parent, title, value, col_idx):
         frame = ctk.CTkFrame(parent)
         frame.grid(row=0, column=col_idx, sticky="ew", padx=5)
         ctk.CTkLabel(frame, text=title, font=("Segoe UI", 12)).pack(anchor="w", padx=15, pady=(15, 0))
@@ -166,6 +166,7 @@ class AnalyticsFrame(ctk.CTkFrame):
         self._clear_charts()
 
         dates, revenues = cf.group_by_time(self.current_data, self.view_mode)
+        print(dates,revenues)
 
         #figure
         fig, ax = plt.subplots(figsize=(5, 3), dpi=100)
@@ -176,7 +177,7 @@ class AnalyticsFrame(ctk.CTkFrame):
         width = 0.8 if self.view_mode == "Day" else 20
 
         #plot
-        ax.bar(dates, revenues, color="#3b82f6", alpha=0.8, width=width, label="Actual")
+        ax.bar(dates, revenues, color="#ff0000", alpha=0.8, width=width, label="Actual")
 
         #style
         ax.set_title(f"daily revenue", color="white", fontsize=10)
