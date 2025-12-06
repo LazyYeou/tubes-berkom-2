@@ -23,12 +23,12 @@ class DataManager:
         self.history_file = history_file
         
         # init Segment Tree with capacity for 1000 items
-        self.seg_tree = SegmentTree(1000) 
+        # self.seg_tree = SegmentTree(1000) 
         
         # load data and push it to segment tree
         self.df_products = self.load_products()
         self.df_history = self.load_history()
-        self.rebuild_segment_tree()
+        # self.rebuild_segment_tree()
 
     def load_products(self):
         """
@@ -48,13 +48,13 @@ class DataManager:
             return pd.read_csv(self.history_file)
         return pd.DataFrame(columns=["product_name", "price", "qty", "total", "timestamp"])
 
-    def rebuild_segment_tree(self):
-        """
-        @brief repopulates segmen tree based on current dataframe rows
-        """
-        self.seg_tree = SegmentTree(1000)
-        for idx, row in self.df_products.iterrows():
-            self.seg_tree.update_value(idx, row['price'], row['name'])
+    # def rebuild_segment_tree(self):
+    #     """
+    #     @brief repopulates segmen tree based on current dataframe rows
+    #     """
+    #     self.seg_tree = SegmentTree(1000)
+    #     for idx, row in self.df_products.iterrows():
+    #         self.seg_tree.update_value(idx, row['price'], row['name'])
 
     def add_product(self, name, price, category, qr_data):
         """
@@ -68,7 +68,7 @@ class DataManager:
         self.df_products = pd.concat([self.df_products, pd.DataFrame([new_row])], ignore_index=True)
         
         idx = len(self.df_products) - 1
-        self.seg_tree.update_value(idx, price, name)
+        # self.seg_tree.update_value(idx, price, name)
         
         self.save_data()
 
@@ -79,7 +79,7 @@ class DataManager:
         """
         self.df_products = self.df_products[self.df_products['name'] != name]
 
-        self.rebuild_segment_tree() 
+        # self.rebuild_segment_tree() 
         self.save_data()
 
     def find_product_by_qr(self, qr_data):

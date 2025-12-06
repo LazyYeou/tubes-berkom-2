@@ -8,7 +8,7 @@ from data_manager import DataManager
 # import ui modules
 from inventory_ui import InventoryFrame
 from scanner_ui import ScannerFrame
-# from analytic_ui import AnalyticsFrame
+from analytic_ui import AnalyticsFrame
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
@@ -48,7 +48,7 @@ class CashierApp(ctk.CTk):
         
         self.frames["inventory"] = InventoryFrame(self, self.data_manager)
         self.frames["scan"] = ScannerFrame(self, self.data_manager)
-        # self.frames["stats"] = AnalyticsFrame(self, self.data_manager)
+        self.frames["stats"] = AnalyticsFrame(self, self.data_manager)
 
         for frame in self.frames.values():
             frame.grid(row=0, column=1, sticky="nsew")

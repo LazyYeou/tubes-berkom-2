@@ -153,7 +153,8 @@ class AnalyticsFrame(ctk.CTkFrame):
         self.card_top.configure(text=top_cat)
 
         #update chart
-        self._plot_revenue_history()
+        self.plot_revenue_history()
+        self.plot_category_dist()
         self._update_treeview()
 
     def _clear_charts(self):
@@ -162,7 +163,7 @@ class AnalyticsFrame(ctk.CTkFrame):
     def _clear_tree(self):
         for item in self.tree.get_children(): self.tree.delete(item)
 
-    def _plot_revenue_history(self):
+    def plot_revenue_history(self):
         self._clear_charts()
 
         dates, revenues = cf.group_by_time(self.current_data, self.view_mode)
@@ -201,6 +202,33 @@ class AnalyticsFrame(ctk.CTkFrame):
 
         plt.tight_layout()
         canvas = FigureCanvasTkAgg(fig, master=self.chart_frame_hist)
+        canvas.draw()
+        canvas.get_tk_widget().pack(fill="both", expand=True, padx=5, pady=5)
+
+    # piechart
+    def plot_category_dist(self):
+        cat_counts = {}
+        for row in self.current_data:
+            c = row.get('category', 'Uncategorized')
+            cat_counts[c] = cat_counts.get(c, 0) + row['total']
+            
+        if not cat_counts: 
+            return
+
+        labels = list(cat_counts.keys())
+        values = list(cat_counts.values())
+
+        fig, ax = plt.subplots(figsize=(4, 3), dpi=100)
+        fig.patch.set_facecolor('#2b2b2b')
+        
+        ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90,
+            textprops={'color': "white", 'fontsize': 8}, pctdistance=0.85,
+            wedgeprops=dict(width=0.5))
+        
+        ax.set_title("Sales by Category", color="white", fontsize=10)
+        plt.tight_layout()
+        
+        canvas = FigureCanvasTkAgg(fig, master=self.chart_frame_cat)
         canvas.draw()
         canvas.get_tk_widget().pack(fill="both", expand=True, padx=5, pady=5)
 
