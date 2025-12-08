@@ -59,10 +59,11 @@ class SegmentTree:
     def build(self, node, left, right, prod):
         if(left == right):
             self.tree[node] = prod[left]
+            return
         mid = (left + right)//2
         self.build(self, 2 * node, left, mid, prod)
         self.build(self, 2 * node + 1, mid + 1, right, prod)
-        self.tree[node].price = self.tree[2 * node].price + self.tree[2 * node + 1].price
+        self.merge(node)
   
 
     
