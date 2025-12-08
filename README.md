@@ -12,11 +12,12 @@ Cashier system based on python program that featuring GUI, QR code scanning , an
 
 ### TechStack
 <ul>
-  <li>Language: Python 3.x</li>
+  <li>Language: Python 3.10</li>
   <li>
 GUI: CustomTkinter </li>
   <li>Image Processing: OpenCV (cv2) & PyZbar (QR)</li>
   <li>Data Handling: Pandas </li>
+  <li>Data Visualization: Matplotlib</li>
   <li>Algorithm/DS: Custom Segment Tree </li>
   
 </ul>
@@ -24,11 +25,12 @@ GUI: CustomTkinter </li>
 
 ## Installation
 1. Clone or Download this repository.
-2. You need Python installed. Run the following command in your terminal to install the required libraries:
+2. Move to tubes-berkom-2 directory
+3. You need Python 3.10 installed. Run the following command in your terminal to install the required libraries:
     ```sh
     pip install customtkinter pandas opencv-python pyzbar pillow matplotlib 
     ```
-3. Run the main app
+4. Run the main app
    ```sh
    python main.py
    ```
