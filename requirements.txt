@@ -1,0 +1,6 @@
+customtkinter
+pandas
+opencv-python
+pyzbar
+pillow
+matplotlib
