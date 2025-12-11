@@ -1,7 +1,7 @@
 # tubes-berkom-2
 
 ### Cashier system 
-Cashier system based on python program that featuring GUI, QR code scanning , and real time inventory analytics using segment tree data structure.
+Cashier system based on python program that featuring GUI, QR code scanning , and real time inventory analytics.
 
 ### Feature
 <ul>
