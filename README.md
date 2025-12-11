@@ -18,7 +18,6 @@ GUI: CustomTkinter </li>
   <li>Image Processing: OpenCV (cv2) & PyZbar (QR)</li>
   <li>Data Handling: Pandas </li>
   <li>Data Visualization: Matplotlib</li>
-  <li>Algorithm/DS: Custom Segment Tree </li>
   
 </ul>
 
